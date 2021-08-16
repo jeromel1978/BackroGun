@@ -16,13 +16,11 @@
 	const SignIn = (e) =>{
 		//alert(e.detail.name);
 		userName = e.detail.name;
-		// user = e.detail.user;
 		loggedIn = true;
 	}
 	function SignUp(e) {
 		//alert(e.detail.name);
 		userName = e.detail.name;
-		// user = e.detail.user;
 		loggedIn = true;
 	}
 </script>
