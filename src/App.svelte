@@ -34,11 +34,7 @@
 </svelte:head>
 
 <main>
-	
-	<!-- <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script> -->
 	<Header userName={userName}/>
-	<!-- <h1>Hello {userName}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p> -->
 	{#if !loggedIn}
 		<Login on:signin={SignIn} on:signup={SignUp}/>
 	{:else}
