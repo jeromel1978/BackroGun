@@ -1,8 +1,29 @@
 export default class BackroGun {
-  constructor() {}
+  constructor() {
+  }
+  initGun = ()=>{
+    this.gun = new window.Gun();
+    console.log("gun loaded");
+  }
+  initSEA = () => {
+    setTimeout(() => {
+      this.SEA = window.SEA;
+      console.log("SEA loaded");
+      this.user = this.gun.user();
+      console.log("user loaded");
+    }, 100);
+  }
+  gun;
+  SEA;
+  user;
 }
 
 class Auth {
+  static MaxRooms = 20;
+  static MaxPlayers = 20;
+  static AveCharPerWord = 5;
+
+
   static Login = () => {};
 
   static LogOut = () => {};
@@ -17,15 +38,16 @@ class Game {
   RoundCount = 5;
   Anchor = new Date();
 
-  Phase = (Name, StartTime, index = 0) => {
+  Phase = (Name, Duration, index = 0) => {
     return {
       name: Name,
       index: index,
-      start: Anchor.setSeconds(Anchor.getSeconds() + StartTime),
+      start: Anchor.setSeconds(Anchor.getSeconds() + Duration),
+      acro: "",
     };
   };
 
-  Template = [Phase("Lobby", 30)];
+  Template = [Phase("Lobby", 30),Phase("Lobby", 30)];
 
   static ListRoom = () => {};
 

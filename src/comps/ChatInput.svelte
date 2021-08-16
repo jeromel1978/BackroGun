@@ -23,7 +23,8 @@
 
 <div class="chat">
     <div class="text"><input type="text" name="txtInput" bind:value on:keydown={CheckForEnter}/></div>
-    <div><button on:click="{SendPressed}">Send</button></div>
+    <div><button on:click="{SendPressed}">
+        <object type="image/svg+xml" data="/images/send24px.svg" title="Send"/></button></div>
 </div>
 
 <style>

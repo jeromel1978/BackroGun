@@ -61,12 +61,18 @@
     <div class="top">
         <div>Rooms ({NumRooms})</div>
         <div>
-            <button on:click={NewRoom}>Create Room</button>
+            <button on:click={NewRoom}>New Room
+                <object type="image/svg+xml" data="/images/addcircle24px.svg" title="Create New Room"/>
+            </button>
         </div>
     </div>
     <div>
-        <input type="text" bind:value/><button on:click={Search}>Search</button>
-        <button>Refresh</button>
+        <input type="text" bind:value/><button on:click={Search}>
+            <object type="image/svg+xml" data="/images/search24px.svg" title="Search"/>
+        </button>
+        <button>
+            <object type="image/svg+xml" data="/images/refresh24px.svg" title="Refresh"/>
+        </button>
     </div>
     <div class="roomlist">
         {#each rooms as room}

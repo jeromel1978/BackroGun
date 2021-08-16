@@ -12,11 +12,13 @@
 
 <div class="{phasename}">
     {#if phase == 4}
-    <div on:click={RoomSelected}>{data.votes}</div>
+        <div on:click={RoomSelected}>{data.votes}</div>
         <div on:click={RoomSelected}>{data.player}</div>
     {/if}
     {#if phase == 3}
-    <button on:click={RoomSelected}>Vote</button>
+    <button on:click={RoomSelected}>
+        <object type="image/svg+xml" data="/images/thumbup24px.svg" title="Vote"/>
+    </button>
     {/if}
     <div on:click={RoomSelected}>{data.text}</div>
 </div>

@@ -2,7 +2,7 @@
     // import Gun from 'gun';
     import { onMount,createEventDispatcher } from 'svelte';
     // const gun = Gun();
-    export let gun;
+    // export let gun;
     // export let user;
     // const user = gun.user;
     // const SEA = Gun.SEA;
@@ -20,23 +20,23 @@
 
     function SignIn() {
         // gun.auth(username,password)
-        gun.get('backro').put({name: username})
+        // gun.get('backro').put({name: username})
         dispatch('signin',{name:username});
     }
 
     function SignUp() {
     // const user = gun.user;
     // console.log(user);
-    console.log(gun);
+    // console.log(gun);
         // gun.create(username,password)
-        gun.get('backro').put({name: username})
+        // gun.get('backro').put({name: username})
         dispatch('signup',{name:username});
     }
 
     function GetName() {
-        gun.get('backro').on(function(data,key){
-            username = data.name;
-        })
+        // gun.get('backro').on(function(data,key){
+        //     username = data.name;
+        // })
     }
 
 //     function forgot(username, A1, A2){
@@ -59,7 +59,9 @@
         <input type="text" id="password" name="password">
     </div>
     <div>
-        <button on:click={SignIn}>Sign In</button>
+        <button on:click={SignIn}>Sign In
+            <object type="image/svg+xml" data="/images/login24px.svg" title="Sign In"/>
+        </button>
         <button on:click={SignUp}>Sign Up</button>
     </div>
 </div>
