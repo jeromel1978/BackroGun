@@ -1,42 +1,45 @@
-<!-- <script lang='typescript'> -->
+<!-- <script lang='ts'> -->
 <script>
 	import Header from './comps/Header.svelte'
 	import Login from './comps/Login.svelte'
 	import GameLayout from './comps/GameLayout.svelte'
-	import BackroGun from './scripts/backrogun.js'
-	window.bkro = new BackroGun();
-
-    // const gun = Gun(['http://localhost:8765/gun', 'https://mvp-gun.herokuapp.com/gun', 'https://e2eec.herokuapp.com/gun']);
-	// const gun = Gun({web: HTTP.createServer(Gun.serve(__dirname)).listen(8765) });
-	// import user from 'gun/user';
-
+	// import BackroGun from './scripts/backrogun.js'
+// type IUSERArgs = {
+//   detail: object;
+// }
+	let message = '';
 	let loggedIn = false;
 	let userName = "";
 
 	const SignIn = (e) =>{
-		//alert(e.detail.name);
-		userName = e.detail.name;
-		loggedIn = true;
+		LogIn(e.detail);
 	}
 	function SignUp(e) {
-		//alert(e.detail.name);
-		userName = e.detail.name;
+		LogIn(e.detail);
+	}
+
+	function LogIn(user){
+		userName = user.name;
 		loggedIn = true;
+	}
+	function LogOut() {
+		loggedIn = false;
+		message = 'You have successfully logged out';
 	}
 </script>
 
 <svelte:head>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/2.0.0/remarkable.min.js" on:load={initializeRemarkable}></script> -->
-	<script src="https://cdn.jsdelivr.net/npm/gun/gun.js" on:load={window.bkro.initGun}></script>
-	<script src="https://cdn.jsdelivr.net/npm/gun/sea.js" on:load={window.bkro.initSEA} defer></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/gun/gun.js" on:load={window.bkro.initGun}></script>
+	<script src="https://cdn.jsdelivr.net/npm/gun/sea.js" on:load={window.bkro.initSEA} defer></script> -->
 </svelte:head>
 
 <main>
 	<Header userName={userName}/>
 	{#if !loggedIn}
-		<Login on:signin={SignIn} on:signup={SignUp}/>
+		<Login on:signin={SignIn} on:signup={SignUp} message= {message}/>
 	{:else}
-		<GameLayout name={userName}/>
+		<GameLayout name={userName} on:logout={LogOut}/>
 	{/if}
 </main>
 

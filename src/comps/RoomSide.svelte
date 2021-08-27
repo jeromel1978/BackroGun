@@ -1,23 +1,30 @@
 <script>
 	import Player from '../elems/Player.svelte';
+	import { fly } from 'svelte/transition';
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     export let roomID;
 
-    let players = [
-        {name:"jeromel1978",points:50},
-        {name:"kimberly",points:25},
-        {name:"billybob",points:10}
-    ];
+export let players
 
-    $: sortedPlayers = players.sort((a,b) => b.points - a.points);
+console.log(players)
+console.log(Object.values(players))
+    $: sortedPlayers = Object.values(players).sort((a,b) => b.points - a.points);
+console.log(sortedPlayers)
 
+function ExitRoom() {
+		dispatch('exit',true);
+    }
 </script>
 
-<div class="side">
+<div class="side" in:fly={{ x: -20 }}>
     
     <div class="top">
         <div>Room: {roomID}</div>
         <div>
-            <button>Exit</button>
+            <button on:click={ExitRoom} title="Back">
+                <object type="image/svg+xml" data="/images/arrowback24px.svg" title="Log Out"/>
+            </button>
         </div>
     </div>
     <div class="playerlist">

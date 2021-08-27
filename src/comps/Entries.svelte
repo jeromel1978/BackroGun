@@ -1,6 +1,5 @@
 <script>
 	import Entry from '../elems/Entry.svelte';
-    export let roomID;
     export let phase;
 
     let entries = [

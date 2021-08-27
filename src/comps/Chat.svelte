@@ -1,16 +1,16 @@
 <script>
+    import { onMount,createEventDispatcher } from 'svelte';
 	import Messages from './Messages.svelte'
 	import ChatInput from './ChatInput.svelte'
 
-	let messages = [];
 	let box;
 	let chat=true;
-	export let name;
+	export let messages;
 
-	function addMessage(message) {
-		messages.push({name:name,message:message.detail});
-		messages=messages;
-		setTimeout(()=>{box.scrolldown()},100);
+    const dispatch = createEventDispatcher();
+	
+	function addMessage(message){
+        dispatch('messageentered',message.detail)
 	}
 </script>
 

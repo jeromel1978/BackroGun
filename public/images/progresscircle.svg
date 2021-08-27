@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120"
+    class="progress-ring"
+    width="120"
+    height="120">
+    <style type="text/css">
+        <![CDATA[
+            .progress-ring__circle {
+            transition: 1s stroke-dashoffset ease-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            }
+            .text {
+                font: bold 60px sans-serif;
+                color:white;
+                margin: auto;
+                width: 50%;
+            }
+        ]]></style>
+    <text class="text" id="SVGInternalText" x="27" y="79" fill="white" stroke-width="4px">0</text>
+    <circle id="SVGInternalCircle"
+        class="progress-ring__circle"
+        stroke="white"
+        stroke-width="8"
+        fill="transparent"
+        r="52"
+        cx="60"
+        cy="60"/>
+    <script><![CDATA[
+        var circle = document.getElementById("SVGInternalCircle")
+        var radius = circle.r.baseVal.value;
+        var circumference = radius * 2 * Math.PI;
+        var timemax = 0;
+        var timeleft = timemax;
+        var text = document.getElementById("SVGInternalText");
+
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = `${circumference}`;
+
+        function setProgress(percent) {
+            const offset = circumference - percent / timemax * circumference;
+            circle.style.strokeDashoffset = offset;
+            text.textContent = timeleft;
+        }
+        
+        let paramList = document?.defaultView?.location?.href?.split("?")[1]?.split(/&|;/);
+        if (paramList) {
+            paramList.forEach((param) => {
+                let val = param.split("=");
+                if (val[0] === "n") {
+                    text.textContent = timeleft = timemax = val[1];
+                    let t = setInterval(()=>{
+                        timeleft--;
+                        setProgress(timeleft);
+                        if(timeleft===0) clearInterval(t);
+                    },1000)
+                }
+            });
+        };
+    ]]></script>
+</svg>

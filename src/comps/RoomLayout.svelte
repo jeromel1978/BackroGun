@@ -2,11 +2,11 @@
     import Timer from "../elems/Timer.svelte";
     import Phase from "../elems/Phase.svelte";
     import Backro from "../elems/Backro.svelte";
-    import Instructions from "../elems/Instructions.svelte";
+    import RoomLobby from "../elems/RoomLobby.svelte";
     import Entries  from "./Entries.svelte";
     export let roomID;
 
-    let phaseID = 3;
+    let phaseID = 0;
     let phases = ["Lobby","Category Selection","Writing","Voting","Recap"];
     let phase = phases[phaseID];
 
@@ -15,11 +15,11 @@
 <div class="main">
     <div class="top">
         <Phase phase={phase}/>
-        <Timer/>
+        <Timer timemax="60"/>
     </div>
     <div class="content">
         {#if phaseID == 0}
-            <Instructions/>
+            <RoomLobby/>
         {:else if phaseID == 1}
             {phases[phaseID]}
         {:else if phaseID == 2}

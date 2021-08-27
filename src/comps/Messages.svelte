@@ -1,16 +1,21 @@
 <script>
     import Message from '../elems/Message.svelte';
     export let messages;
+// console.log(messages)
+    $: if ( Object.keys(messages).length > 0 ) {
+        scrolldown();
+    }
 
     export function scrolldown(){
         let d = document.querySelector(".bottom");
+        if(d)
         d.scrollIntoView({alignToTop :false,behavior:"smooth"});
     }
 </script>
 
 <div class="messages">
-    {#each messages as message}
-        <Message message={message}/>
+    {#each Object.entries(messages) as message (message[0])}
+        <Message message={message[1]} />
     {/each}
     <div class="bottom"></div>
 </div>

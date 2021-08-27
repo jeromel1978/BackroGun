@@ -1,82 +1,58 @@
 <script>
-	import Room from '../elems/Room.svelte';
-    import { v4 as uuidv4 } from "uuid";
-    // import { rooms } from '../scripts/stores.js';
-    // import Gun from 'gun';
-    import { onMount,createEventDispatcher } from 'svelte';
+    import Room from '../elems/Room.svelte';
+	import { fly } from 'svelte/transition';
+    // import { v4 as UUIDv4 } from "uuid";
+    import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
-    // const gun = Gun();
-    // export let gun;
-    // const SEA = Gun.SEA;
     let value="";
-    let rooms = [];
-    $: NumRooms = rooms.length;
-    let name = "";
-    let Key = "";
-
-    onMount(() =>{
-        // rooms.subscribe();
-        // GetRooms();
-    });
+    export let rooms;
+    $: NumRooms = Object.keys(rooms).length;
     
+    // console.log(rooms)
     function GetRooms(){
-        // rooms.subscribe;
-        // gun.get('backrorooms').on(function(data,key){
-        //     NumRooms = JSON.stringify(data);
-        //     let names = data.name;
-        //     console.log(names);
-        //     rooms = data;
-        // })
-        // // gun.get('backrorooms',function(data){
-        // //     // NumRooms = JSON.stringify(data);
-        // //     NumRooms = data;
-        // //     rooms = data;
-        // // })
-
-        // gun.get('backro').on(function(data,key){
-        //     name = data.name;
-        // })
     }
 
     function NewRoom(){
-        // alert("hi");
-        rooms.push({name:uuidv4().substr(0,8),num:1});
-        rooms = rooms;
-        // rooms.newroom();
-        // let room = gun.get(value).put({name:value})
-        // gun.get('backrorooms').set(room);
+        dispatch('roomadd',true)
     }
 
     function Search() {
-        // console.log(rooms);
     }
-    function SelectRoom(room) {
-        // console.log(room.detail.roomID)
-        dispatch("roomselected",room.detail.roomID)
+    function SelectRoom(data) {
+        dispatch('roomselected',data.detail.key)
+    }
+    function LogOut() {
+        user.leave();
+		dispatch('logout',true);
     }
 </script>
 
-<div class="side">
+<div class="side" in:fly={{ x: -20 }}>
     
     <div class="top">
+        <div>
+            <button on:click={LogOut} title="Log Out">
+                <object type="image/svg+xml" data="/images/logout24px.svg" title="Log Out"/>
+            </button>
+        </div>
         <div>Rooms ({NumRooms})</div>
         <div>
-            <button on:click={NewRoom}>New Room
+            <button on:click={NewRoom} title="Create New Room">
                 <object type="image/svg+xml" data="/images/addcircle24px.svg" title="Create New Room"/>
             </button>
         </div>
     </div>
     <div>
-        <input type="text" bind:value/><button on:click={Search}>
+        <input type="text" bind:value title="Search"/><button on:click={Search} title="Search">
             <object type="image/svg+xml" data="/images/search24px.svg" title="Search"/>
         </button>
-        <button>
+        <button title="Refresh">
             <object type="image/svg+xml" data="/images/refresh24px.svg" title="Refresh"/>
         </button>
     </div>
     <div class="roomlist">
-        {#each rooms as room}
-            <Room data={room} on:room={SelectRoom}/>
+        {#each Object.entries(rooms) as [key,room]}
+            <Room key={key} data={room} on:room={SelectRoom}/>
         {/each}
     </div>
     <!-- <button on:click={test}>Test</button> -->
@@ -86,16 +62,22 @@
 .side{
     display:flex;
     flex-direction:column;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
     height:100%;
 }
 .top{
     display:grid;
-    grid-template-columns:1fr auto;
+    grid-template-columns:auto 1fr auto;
 }
+/* .top > div {
+    display:flex;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+} */
 .roomlist{
     overflow-y: hidden !important;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height:100%;
 }
 </style>
